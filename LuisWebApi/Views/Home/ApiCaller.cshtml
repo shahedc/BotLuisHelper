@@ -1,0 +1,156 @@
+﻿@{
+    ViewBag.Title = "ApiCaller";
+}
+
+<h2>ApiCaller</h2>
+
+<h2>Utterance Input</h2>
+
+<form id="luisForm">
+<textarea id="UtterText" style="width:800px" rows="20" cols="200">
+[
+  {
+    "text": "i need a microcontroller with an 8051 device core",
+    "intentName": "intent_FindProduct",
+    "entityLabels": [
+      {
+        "entityName": "attribute_ProductName",
+        "startCharIndex": 9,
+        "endCharIndex": 23
+      },
+      {
+        "entityName": "attribute_ComplexConnector",
+        "startCharIndex": 25,
+        "endCharIndex": 28
+      },
+      {
+        "entityName": "attribute_tag",
+        "startCharIndex": 33,
+        "endCharIndex": 48
+      }
+    ]
+  },
+  {
+    "text": "i need a microcontroller with an 1871 device core",
+    "intentName": "intent_FindProduct",
+    "entityLabels": [
+      {
+        "entityName": "attribute_ProductName",
+        "startCharIndex": 9,
+        "endCharIndex": 23
+      },
+      {
+        "entityName": "attribute_ComplexConnector",
+        "startCharIndex": 25,
+        "endCharIndex": 28
+      },
+      {
+        "entityName": "attribute_tag",
+        "startCharIndex": 33,
+        "endCharIndex": 48
+      }
+    ]
+  }
+
+]
+</textarea>
+
+
+    <div id="resultDiv">?</div>
+
+    <input type="button" value="Add utterances" onclick="processInput('add')" />
+    <input type="button" value="Train utterances" onclick="processInput('train')" />
+    <input type="button" value="Get Status" onclick="processInput('status')" />
+</form>
+
+<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+
+<script> 
+function processInput(actionType) {
+    console.log("processInput begins...");
+    console.log("actionType=" + actionType);
+    var utterText = $("#UtterText").val(); 
+ 
+    var baseUri = "";
+    var fullUri = "";
+    var params = "";
+    
+    switch (actionType) {
+        case ('add'):
+            {
+                baseUri = "/api/Utterance";
+                fullUri = baseUri + params;
+                processPost(fullUri);
+            }
+            break;
+        case ('train'):
+            {
+                baseUri = "/api/Train";
+                fullUri = baseUri + params;
+                processPost(fullUri);
+            }
+            break;
+        case ('status'):
+            {
+                baseUri = "/api/Train";
+                fullUri = baseUri + params;
+                processGet(fullUri);
+            }
+            break;
+        default:
+            {
+            }
+    }
+
+    console.log("fullUri=" + fullUri);
+    console.log("processInput ends...");
+
+}
+
+function processGet(uriValue)
+{
+    console.log("processGet begins");
+    var jqxhr = $.getJSON(uriValue, function (json) {
+        console.log("GET call success");
+        console.log("GET data=[" + json + "]");
+        $("#resultDiv").text(json);
+    })
+        .done(function () {
+            console.log("second success");
+        })
+        .fail(function () {
+            $("#resultDiv").text("error");
+            console.log("error");
+        })
+        .always(function () {
+            console.log("complete");
+        });
+    
+    jqxhr.complete(function () {
+        console.log("second complete");
+    });
+    console.log("processGet ends");
+}
+
+
+function processPost(uriValue) 
+{
+    console.log("processPost begins");
+    console.log("uriValue = " + uriValue);
+    console.log("utterText value= " + $("UtterText").val());
+
+    var jqxhr = $.post(uriValue, { "": $('#UtterText').val() })
+        .success(function (json) {
+            console.log("POST success");
+            $("#resultDiv").text(json);
+        })
+        .error(function () {
+            $("#resultDiv").text("error");
+            console.log("error");
+        });
+
+    console.log("processPost ends");
+}
+</script>
+
+

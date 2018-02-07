@@ -1,0 +1,45 @@
+[
+  {
+    "text": "i need a microcontroller with an 8051 device core",
+    "intentName": "intent_FindProduct",
+    "entityLabels": [
+      {
+        "entityName": "attribute_ProductName",
+        "startCharIndex": 9,
+        "endCharIndex": 23
+      },
+      {
+        "entityName": "attribute_ComplexConnector",
+        "startCharIndex": 25,
+        "endCharIndex": 28
+      },
+      {
+        "entityName": "attribute_tag",
+        "startCharIndex": 33,
+        "endCharIndex": 48
+      }
+    ]
+  },
+  {
+    "text": "i need a microcontroller with an 1871 device core",
+    "intentName": "intent_FindProduct",
+    "entityLabels": [
+      {
+        "entityName": "attribute_ProductName",
+        "startCharIndex": 9,
+        "endCharIndex": 23
+      },
+      {
+        "entityName": "attribute_ComplexConnector",
+        "startCharIndex": 25,
+        "endCharIndex": 28
+      },
+      {
+        "entityName": "attribute_tag",
+        "startCharIndex": 33,
+        "endCharIndex": 48
+      }
+    ]
+  }
+
+]
